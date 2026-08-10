@@ -12,8 +12,8 @@ module.exports = {
       },
       colors: {
         brand: {
-          accent: "#3b82f6",
-          accentHover: "#2563eb",
+          accent: "#3a97eb",
+          accentHover: "#b6d3ed",
           dark: "#030712",
           card: "#111827",
           border: "#1f2937",

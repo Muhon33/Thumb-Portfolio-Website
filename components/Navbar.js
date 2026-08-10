@@ -179,7 +179,7 @@ export default function Navbar() {
       <div
         className="pointer-events-auto flex items-center gap-2 px-4 py-3 rounded-[34px]"
         style={{
-          background:       "radial-gradient(circle at 95% 10%, rgba(59, 130, 246, 0.4) 0%, rgba(15, 15, 15, 0.7) 40%, rgba(15, 15, 15, 0.7) 100%)",
+          background:       "radial-gradient(circle at 95% 10%, rgba(58, 151, 235, 0.45) 0%, rgba(15, 15, 15, 0.7) 40%, rgba(15, 15, 15, 0.7) 100%)",
           backdropFilter:   "blur(28px)",
           WebkitBackdropFilter: "blur(28px)",
           border:           "1px solid rgba(255,255,255,0.1)",
