@@ -50,7 +50,7 @@ function AvatarRow() {
         ))}
       </div>
       <p className="text-[13px] leading-tight m-0 text-neutral-400">
-        Trusted by <span className="text-[#3a97eb] font-bold">100+</span>
+        Trusted by <span className="text-[#8726ff] font-bold">100+</span>
         <br />clients worldwide
       </p>
     </div>
@@ -68,14 +68,14 @@ function HeroContent({ bright = false }) {
 
       {/* LEFT (Text) */}
       <div className="relative z-20 flex flex-col items-center text-center md:items-start md:text-left gap-0 order-2 md:order-1 -mt-[300px] md:mt-0">
-        <p className={`text-xl md:text-2xl font-medium mb-3 tracking-wide uppercase ${bright ? "text-[#b6d3ed]" : "text-neutral-500"}`}>
+        <p className={`text-xl md:text-2xl font-medium mb-3 tracking-wide uppercase ${bright ? "text-[#c8a2ff]" : "text-neutral-500"}`}>
           Hi, I&apos;m
         </p>
 
         <h1 className={`text-[80px] md:text-[140px] lg:text-[116px] font-extrabold leading-[0.92] tracking-tight mb-7 font-display ${bright ? "text-white" : "text-neutral-700"}`}>
           Mahbub
           <br />
-          <span className={bright ? "text-transparent bg-clip-text bg-gradient-to-r from-[#b6d3ed] to-[#3a97eb]" : "text-neutral-700"}>
+          <span className={bright ? "text-transparent bg-clip-text bg-gradient-to-r from-[#c8a2ff] to-[#8726ff]" : "text-neutral-700"}>
             Muhon
           </span>
         </h1>
@@ -90,7 +90,7 @@ function HeroContent({ bright = false }) {
           rel="noopener noreferrer"
           className={`inline-flex items-center justify-center gap-2.5 px-10 py-5 rounded-full font-extrabold text-base w-fit mx-auto md:mx-0 mb-12 transition-all duration-300 ${
             bright
-              ? "bg-gradient-to-r from-[#b6d3ed] to-[#3a97eb] text-black shadow-[0_6px_32px_rgba(58,151,235,0.4)] hover:shadow-[0_10px_40px_rgba(58,151,235,0.6)]"
+              ? "bg-gradient-to-r from-[#c8a2ff] to-[#8726ff] text-black shadow-[0_6px_32px_rgba(135,38,255,0.4)] hover:shadow-[0_10px_40px_rgba(135,38,255,0.6)]"
               : "bg-neutral-800 text-neutral-400 border border-neutral-700"
           }`}
         >
@@ -103,7 +103,7 @@ function HeroContent({ bright = false }) {
         <div className="flex flex-wrap justify-center md:justify-start gap-3 md:gap-8 pb-12 md:pb-0">
           {badges.map((b) => (
             <div key={b.title} className="flex items-center gap-2.5 md:gap-3 text-left">
-              <div className={`w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center flex-shrink-0 ${bright ? "bg-[#3a97eb]/15 border border-[#3a97eb]/30 text-[#3a97eb]" : "bg-neutral-800 border border-neutral-700 text-neutral-500"}`}>
+              <div className={`w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center flex-shrink-0 ${bright ? "bg-[#8726ff]/15 border border-[#8726ff]/30 text-[#8726ff]" : "bg-neutral-800 border border-neutral-700 text-neutral-500"}`}>
                 {b.icon}
               </div>
               <div>
