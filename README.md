@@ -1,24 +1,80 @@
-# ThumbCraft — YouTube Thumbnail Designer Portfolio
+<div align="center">
 
-A premium portfolio website for a YouTube thumbnail designer, inspired by the design language of [rednsay.com](https://www.rednsay.com). Built with **Next.js**, **JavaScript**, and **Tailwind CSS**.
+# 🎨 Mahbub Muhon — Portfolio Website
+
+### Premium YouTube Thumbnail Designer
+
+[![Live Site](https://img.shields.io/badge/🌐_Live_Site-muhon.vercel.app-3a97eb?style=for-the-badge&logoColor=white)](https://muhon.vercel.app)
+[![Next.js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38bdf8?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![Framer Motion](https://img.shields.io/badge/Framer_Motion-11-ff0055?style=for-the-badge&logo=framer&logoColor=white)](https://www.framer.com/motion/)
+[![Deployed on Vercel](https://img.shields.io/badge/Deployed_on-Vercel-000?style=for-the-badge&logo=vercel)](https://vercel.com)
+
+<br />
+
+**A scroll-stopping personal portfolio built with Next.js, Tailwind CSS, and Framer Motion.**
+**Designed to convert visitors into clients through bold visuals and seamless interactions.**
+
+<br />
+
+[View Live →](https://muhon.vercel.app) · [Report Bug](https://github.com/Muhon33/Thumb-Portfolio-Website/issues) · [Request Feature](https://github.com/Muhon33/Thumb-Portfolio-Website/issues)
+
+</div>
+
+---
+
+## ✨ Highlights
+
+- **Interactive Hero Section** — Orbital animation with tool icons, SVG mask reveal on hover, and a bold gradient name treatment
+- **Infinite Thumbnail Carousel** — Three rows of auto-scrolling thumbnail samples with CSS-only hover effects
+- **Client Testimonials** — Responsive masonry grid with glassmorphism cards and mobile-optimized layout (3-card view)
+- **WhatsApp CTA Integration** — Direct "Contact Me Now" buttons throughout the site for instant client conversion
+- **Glassmorphism Dock Navbar** — Floating bottom navigation with section-aware active states and a subtle blue gradient accent
+- **Fully Responsive** — Pixel-perfect layouts across desktop, tablet, and mobile with dedicated media query optimizations
+- **Performance Optimized** — Lazy-loaded images, GPU-accelerated animations, and reduced blur compositing for smooth 60fps on all devices
+
+---
+
+## 🛠 Tech Stack
+
+| Layer | Technology |
+| :--- | :--- |
+| **Framework** | [Next.js 14](https://nextjs.org/) (Pages Router) |
+| **Styling** | [Tailwind CSS 3.4](https://tailwindcss.com/) |
+| **Animations** | [Framer Motion 11](https://www.framer.com/motion/) |
+| **Typography** | [Bricolage Grotesque](https://fonts.google.com/specimen/Bricolage+Grotesque) (Google Fonts) |
+| **Deployment** | [Vercel](https://vercel.com) |
+| **Design Tool** | Figma, Adobe Photoshop |
 
 ---
 
 ## 🚀 Getting Started
 
-### 1. Install dependencies
-```bash
-npm install
-```
+### Prerequisites
 
-### 2. Start the dev server
+- [Node.js](https://nodejs.org/) v18 or later
+- npm or yarn
+
+### Installation
+
 ```bash
+# Clone the repository
+git clone https://github.com/Muhon33/Thumb-Portfolio-Website.git
+
+# Navigate to the project
+cd Thumb-Portfolio-Website
+
+# Install dependencies
+npm install
+
+# Start the development server
 npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-### 3. Build for production
+### Production Build
+
 ```bash
 npm run build
 npm start
@@ -31,116 +87,55 @@ npm start
 ```
 thumbnail-portfolio/
 ├── components/
-│   ├── Navbar.js           — Sticky top nav with mobile menu
-│   ├── Hero.js             — Full-screen hero with stats
-│   ├── ThumbnailScroller.js — Infinite marquee of thumbnail previews
-│   ├── Process.js          — 4-step design process cards
-│   ├── WhyUs.js            — Before/After comparison + metrics
-│   ├── Works.js            — Portfolio grid with case studies
-│   ├── About.js            — Designer profile section
-│   ├── Testimonials.js     — Masonry testimonials grid
-│   ├── FAQ.js              — Animated accordion FAQ
-│   ├── CTA.js              — Final call-to-action section
-│   └── Footer.js           — Footer with links
+│   ├── Hero.js                  # Hero section with orbital scene & mask effect
+│   ├── OrbitScene.js            # Animated orbit with tool icons
+│   ├── Navbar.js                # Floating glassmorphism dock navbar
+│   ├── InfiniteScrollBannerF.jsx # Auto-scrolling thumbnail carousel
+│   ├── Testimonials.js          # Client testimonials grid
+│   ├── CTA.js                   # Call-to-action section
+│   ├── LiquidBackground.js      # Ambient background orbs
+│   ├── SVGMaskEffect.js         # Mouse-tracking SVG reveal
+│   └── Footer.js                # Site footer
 ├── pages/
-│   ├── _app.js
-│   ├── _document.js
-│   └── index.js            — Main page, assembles all sections
+│   ├── index.js                 # Main page
+│   ├── _app.js                  # App wrapper
+│   └── _document.js             # Document configuration
+├── public/
+│   ├── images/                  # Thumbnail samples & hero image
+│   └── Icons/                   # Tool icons (Photoshop, Figma, etc.)
 ├── styles/
-│   └── globals.css         — Tailwind + custom CSS variables & animations
-├── tailwind.config.js
-├── postcss.config.js
-└── next.config.js
+│   └── globals.css              # Global styles & design tokens
+└── tailwind.config.js           # Tailwind configuration
 ```
 
 ---
 
 ## 🎨 Design System
 
-### Colors
-| Token | Value | Usage |
-|-------|-------|-------|
-| `brand-red` | `#FF3131` | Accents, CTAs, highlights |
-| `brand-dark` | `#0A0A0A` | Page background |
-| `brand-card` | `#111111` | Card backgrounds |
-| `brand-border` | `#1E1E1E` | Borders, dividers |
-| `brand-muted` | `#6B6B6B` | Secondary text |
-| `brand-light` | `#F5F5F5` | Primary text |
-
-### Fonts
-- **Display:** Clash Display (headings, numbers)
-- **Body:** Satoshi (paragraphs, UI text)
-- Both loaded via [Fontshare](https://www.fontshare.com) CDN
-
-### Custom CSS Classes
-- `.btn-primary` — Red CTA button with glow hover
-- `.btn-secondary` — Ghost button
-- `.stat-card` — Dark card with top-red gradient line
-- `.tag-pill` — Red outlined badge
-- `.work-card` — Portfolio card with hover overlay
-- `.testimonial-card` — Dark testimonial block
-- `.section-label` — Red uppercase section label with line
-- `.fade-up` / `.visible` — Scroll-triggered reveal animation
-- `.marquee-wrapper` / `.marquee-track` — Infinite scroll marquee
+| Token | Value |
+| :--- | :--- |
+| **Primary Gradient** | `#b6d3ed` → `#3a97eb` |
+| **Background** | `#000000` (Pure Black) |
+| **Font** | Bricolage Grotesque |
+| **Border Radius** | Rounded (`2xl` / `full`) |
+| **Glass Effect** | `backdrop-blur-xl` + `bg-white/10` |
 
 ---
 
-## ✏️ Customization Guide
+## 📬 Contact
 
-### Change your name / branding
-- In `components/Navbar.js`: update the logo text
-- In `components/Hero.js`: update the headline and stats
-- In `components/About.js`: replace placeholder name, bio, and avatar
-- In `components/Footer.js`: update copyright name
+**Mahbub Muhon** — Premium YouTube Thumbnail Designer
 
-### Update portfolio works
-- Edit the `works` array in `components/Works.js`
-- Each work has: `title`, `tags`, `desc`, `color`, `accent`, `views`, `ctr`, `client`, `role`
-
-### Update testimonials
-- Edit the `testimonials` array in `components/Testimonials.js`
-
-### Update process steps
-- Edit the `steps` array in `components/Process.js`
-
-### Update FAQs
-- Edit the `faqs` array in `components/FAQ.js`
-
-### Change booking/contact links
-- `components/Hero.js` — "Book a Free Call" → update `href` to your cal.com/Calendly link
-- `components/CTA.js` — Update both booking and WhatsApp links
-- `components/Navbar.js` — "Get Started" button
+- 🌐 Portfolio: [muhon.vercel.app](https://muhon.vercel.app)
+- 💬 WhatsApp: [Chat Now](https://wa.me/muhon1)
+- 🐙 GitHub: [@Muhon33](https://github.com/Muhon33)
 
 ---
 
-## 🌐 Deployment
+<div align="center">
 
-### Vercel (Recommended)
-```bash
-npm install -g vercel
-vercel
-```
+**⭐ If you found this project helpful, consider giving it a star!**
 
-### Netlify
-```bash
-npm run build
-# Upload the .next folder or connect your GitHub repo
-```
+Made with ❤️ by [Mahbub Muhon](https://muhon.vercel.app)
 
----
-
-## 📦 Dependencies
-- `next` — React framework
-- `react` + `react-dom` — UI library
-- `tailwindcss` — Utility CSS
-- `autoprefixer` + `postcss` — CSS tooling
-
-No additional UI libraries needed — everything is built with pure Tailwind + custom CSS.
-
----
-
-## 💡 Tips
-- Replace the placeholder thumbnail cards in `ThumbnailScroller.js` with real screenshot images of your work
-- Add real client avatar photos in `Testimonials.js` using `<Image>` from `next/image`
-- Connect a form service (Formspree, EmailJS) to the CTA section for lead capture
-- Add Google Analytics or Posthog for tracking
+</div>
