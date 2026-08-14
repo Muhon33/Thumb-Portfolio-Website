@@ -50,7 +50,7 @@ function AvatarRow() {
         ))}
       </div>
       <p className="text-[13px] leading-tight m-0 text-neutral-400">
-        Trusted by <span className="text-[#3a97eb] font-bold">50+</span>
+        Trusted by <span className="text-[#3a97eb] font-bold">100+</span>
         <br />clients worldwide
       </p>
     </div>
@@ -62,7 +62,7 @@ function HeroContent({ bright = false }) {
   return (
     <div className="max-w-7xl mx-auto px-4 md:px-8 py-4 md:py-8 grid grid-cols-1 md:grid-cols-2 items-center gap-8 h-auto md:min-h-[100dvh] pb-10 md:pb-20">
       {/* MOBILE TRUSTED BY */}
-      <div className="md:hidden flex w-fit mx-auto mt-[40px] -mb-[80px] backdrop-blur-2xl bg-white/10 border border-white/20 rounded-2xl p-4 shadow-[0_8px_32px_rgba(0,0,0,0.5)] z-[300] relative order-first">
+      <div className="md:hidden flex w-fit mx-auto mt-[40px] -mb-[80px] backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl p-4 shadow-[0_8px_32px_rgba(0,0,0,0.5)] z-[300] relative order-first">
         <AvatarRow />
       </div>
 
@@ -115,10 +115,16 @@ function HeroContent({ bright = false }) {
         </div>
       </div>
 
-      {/* RIGHT (Image) */}
+      {/* RIGHT (Image + Trusted By overlay with black fade) */}
       <div className="relative z-10 flex flex-col items-center justify-center scale-[0.65] sm:scale-[0.85] md:scale-[1.15] -mt-20 md:-mb-[30px] lg:mb-0 md:mt-0 order-1 md:order-2">
         <OrbitScene />
-        <div className="hidden md:block absolute bottom-[30px] right-[20px] backdrop-blur-2xl bg-white/10 border border-white/20 rounded-2xl p-4 shadow-[0_8px_32px_rgba(0,0,0,0.5)] z-[300] opacity-50 hover:opacity-100 transition-opacity duration-300">
+        {/* Black fade from bottom behind Trusted By */}
+        <div
+          className="hidden md:block absolute bottom-0 left-[-20%] w-[140%] h-[180px] pointer-events-none z-[290]"
+          style={{ background: "linear-gradient(to top, black 20%, transparent 100%)" }}
+        />
+        {/* Desktop Trusted By pill — sits on top of fade */}
+        <div className="hidden md:block absolute bottom-[30px] right-[20px] backdrop-blur-xl bg-white/10 border border-white/20 rounded-2xl p-4 shadow-[0_8px_32px_rgba(0,0,0,0.5)] z-[300] opacity-50 hover:opacity-100 transition-opacity duration-300">
           <AvatarRow />
         </div>
       </div>

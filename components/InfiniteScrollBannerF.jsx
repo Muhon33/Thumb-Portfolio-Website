@@ -30,92 +30,13 @@ const ROW_3 = [
   { src: "/images/thumbnail18.jpeg", alt: "Thumbnail 18" },
 ];
 
-// ─── ScrollRow ────────────────────────────────────────────────────────────────
+// ─── ScrollRow (Pure CSS hover — no JS getBoundingClientRect loop) ─────────
 function ScrollRow({ images, direction = "left", duration = "36s" }) {
-  const wrapperRef = useRef(null);
-  const trackRef = useRef(null);
-  const rafRef = useRef(null);
-  const mousePos = useRef({ x: -9999, y: -9999 });
-  const isHovering = useRef(false);
-
   const items = [...images, ...images, ...images];
   const animationName = direction === "left" ? "scroll-left" : "scroll-right";
 
-  useEffect(() => {
-    const wrapper = wrapperRef.current;
-    const track = trackRef.current;
-    if (!wrapper || !track) return;
-
-    // ── Frame loop: runs only while mouse is over the row ──
-    function tick() {
-      if (!isHovering.current) return;
-
-      const cards = track.querySelectorAll(".thumb-card");
-      const { x, y } = mousePos.current;
-
-      cards.forEach((card) => {
-        const rect = card.getBoundingClientRect();
-        const cx = rect.left + rect.width * 0.5;
-        const cy = rect.top + rect.height * 0.5;
-        const dx = x - cx;
-        const dy = y - cy;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        const maxDist = rect.width * 0.65;
-
-        if (dist < maxDist) {
-          const t = 1 - dist / maxDist;           // 0 → 1 as cursor approaches center
-          const scale = 1 + 0.15 * t;
-          const blur  = 24 + 40 * t;
-          const lift  = 4 + 12 * t;
-          const alpha = (0.45 + 0.45 * t).toFixed(2);
-          card.style.transform  = `scale(${scale.toFixed(4)})`;
-          card.style.boxShadow  = `0 ${lift.toFixed(0)}px ${blur.toFixed(0)}px rgba(0,0,0,${alpha})`;
-          card.style.zIndex     = "20";
-        } else {
-          card.style.transform  = "scale(1)";
-          card.style.boxShadow  = "0 4px 20px rgba(0,0,0,0.45)";
-          card.style.zIndex     = "1";
-        }
-      });
-
-      rafRef.current = requestAnimationFrame(tick);
-    }
-
-    function onMouseMove(e) {
-      mousePos.current = { x: e.clientX, y: e.clientY };
-    }
-
-    function onMouseEnter() {
-      isHovering.current = true;
-      rafRef.current = requestAnimationFrame(tick);
-    }
-
-    function onMouseLeave() {
-      isHovering.current = false;
-      cancelAnimationFrame(rafRef.current);
-      // Reset all cards
-      track.querySelectorAll(".thumb-card").forEach((card) => {
-        card.style.transform = "scale(1)";
-        card.style.boxShadow = "0 4px 20px rgba(0,0,0,0.45)";
-        card.style.zIndex    = "1";
-      });
-    }
-
-    wrapper.addEventListener("mousemove",  onMouseMove,  { passive: true });
-    wrapper.addEventListener("mouseenter", onMouseEnter, { passive: true });
-    wrapper.addEventListener("mouseleave", onMouseLeave, { passive: true });
-
-    return () => {
-      cancelAnimationFrame(rafRef.current);
-      wrapper.removeEventListener("mousemove",  onMouseMove);
-      wrapper.removeEventListener("mouseenter", onMouseEnter);
-      wrapper.removeEventListener("mouseleave", onMouseLeave);
-    };
-  }, []);
-
   return (
     <div
-      ref={wrapperRef}
       className="relative w-full"
       style={{
         maskImage:
@@ -125,7 +46,6 @@ function ScrollRow({ images, direction = "left", duration = "36s" }) {
       }}
     >
       <div
-        ref={trackRef}
         className="flex gap-4 w-max py-3"
         style={{
           animationName,
@@ -138,10 +58,9 @@ function ScrollRow({ images, direction = "left", duration = "36s" }) {
         {items.map((img, i) => (
           <div
             key={i}
-            className="thumb-card flex-shrink-0 w-[170px] h-[100px] md:w-[340px] md:h-[200px] rounded-xl cursor-pointer"
+            className="thumb-card flex-shrink-0 w-[170px] h-[100px] md:w-[340px] md:h-[200px] rounded-xl cursor-pointer hover:scale-105 hover:z-20 hover:shadow-[0_12px_48px_rgba(0,0,0,0.7)]"
             style={{
-              /* Snappy spring — fast in, smooth out */
-              transition: "transform 0.18s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.18s ease",
+              transition: "transform 0.25s ease, box-shadow 0.25s ease",
               willChange: "transform",
               position: "relative",
               zIndex: 1,
@@ -155,6 +74,7 @@ function ScrollRow({ images, direction = "left", duration = "36s" }) {
                 src={img.src}
                 alt={img.alt}
                 draggable={false}
+                loading="lazy"
                 className="w-full h-full object-cover block select-none pointer-events-none"
               />
             </div>

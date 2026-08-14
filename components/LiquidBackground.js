@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 export default function LiquidBackground() {
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none -z-10 bg-black">
-      {/* Orb 1 */}
+      {/* Orb 1 — reduced blur for performance */}
       <motion.div
         animate={{
           x: ["0%", "50%", "0%", "-30%", "0%"],
@@ -16,7 +16,8 @@ export default function LiquidBackground() {
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute top-[10%] left-[20%] w-[600px] h-[600px] bg-red-600/30 rounded-full blur-[120px] mix-blend-screen"
+        className="absolute top-[10%] left-[20%] w-[400px] h-[400px] bg-red-600/20 rounded-full blur-[60px] mix-blend-screen"
+        style={{ willChange: "transform" }}
       />
 
       {/* Orb 2 */}
@@ -31,7 +32,8 @@ export default function LiquidBackground() {
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute top-[40%] right-[10%] w-[500px] h-[500px] bg-[#FF3131]/20 rounded-full blur-[100px] mix-blend-screen"
+        className="absolute top-[40%] right-[10%] w-[350px] h-[350px] bg-[#FF3131]/15 rounded-full blur-[50px] mix-blend-screen"
+        style={{ willChange: "transform" }}
       />
 
       {/* Orb 3 */}
@@ -46,7 +48,8 @@ export default function LiquidBackground() {
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute bottom-[-10%] left-[30%] w-[700px] h-[700px] bg-orange-600/20 rounded-full blur-[150px] mix-blend-screen"
+        className="absolute bottom-[-10%] left-[30%] w-[450px] h-[450px] bg-orange-600/15 rounded-full blur-[60px] mix-blend-screen"
+        style={{ willChange: "transform" }}
       />
     </div>
   );
