@@ -1,4 +1,5 @@
 import { Bricolage_Grotesque } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "../styles/globals.css";
 
 // Self-hosted by Next.js: no request to Google at runtime, no render blocking.
@@ -17,6 +18,8 @@ export default function App({ Component, pageProps }) {
         }
       `}</style>
       <Component {...pageProps} />
+      {/* Vercel Web Analytics: page views and visitors, no cookies */}
+      <Analytics />
     </>
   );
 }
