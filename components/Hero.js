@@ -75,10 +75,10 @@ const WhatsAppIcon = () => (
 // nothing in it can be clicked).
 function HeroContent({ dim = false }) {
   const ctaClass =
-    "inline-flex items-center justify-center gap-2.5 px-10 py-4 md:py-5 rounded-full font-extrabold text-base w-fit mx-auto lg:mx-0 mb-10";
+    "hero-cta inline-flex items-center justify-center gap-2.5 px-10 py-4 md:py-5 rounded-full font-extrabold text-base w-fit mx-auto lg:mx-0 mb-10";
 
   return (
-    <div className="hero-grid max-w-7xl mx-auto px-4 md:px-8 grid grid-cols-1 lg:grid-cols-2 items-center lg:gap-8 lg:min-h-[100dvh] pt-5 md:pt-8 pb-12 lg:py-12">
+    <div className="hero-grid max-w-7xl mx-auto px-4 md:px-8 grid grid-cols-1 lg:grid-cols-2 items-center lg:gap-8 lg:min-h-[100dvh] pt-5 md:pt-8 pb-12 lg:py-6">
       {/* Phone and tablet: "Trusted by" pill above the photo */}
       <div className="lg:hidden w-fit mx-auto relative z-30 rounded-2xl p-4 bg-white/10 border border-white/20 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
         <TrustedBy dim={dim} />
@@ -96,7 +96,7 @@ function HeroContent({ dim = false }) {
 
       {/* Text */}
       <div className="hero-text relative z-20 flex flex-col items-center text-center lg:items-start lg:text-left lg:order-1">
-        <p className={`text-xl md:text-2xl font-medium mb-3 tracking-wide uppercase ${dim ? "text-neutral-500" : "text-[var(--brand-accent-soft)]"}`}>
+        <p className={`hero-kicker text-xl md:text-2xl font-medium mb-3 tracking-wide uppercase ${dim ? "text-neutral-500" : "text-[var(--brand-accent-soft)]"}`}>
           Hi, I&apos;m
         </p>
 
@@ -116,7 +116,7 @@ function HeroContent({ dim = false }) {
           </h1>
         )}
 
-        <p className={`text-[17px] md:text-2xl leading-relaxed max-w-lg mb-6 md:mb-8 mx-auto lg:mx-0 ${dim ? "text-neutral-500" : "text-neutral-300"}`}>
+        <p className={`hero-lead text-[17px] md:text-2xl leading-relaxed max-w-lg mb-6 md:mb-8 mx-auto lg:mx-0 ${dim ? "text-neutral-500" : "text-neutral-300"}`}>
           I design scroll-stopping YouTube thumbnails that grow your channel&apos;s click-through rate and views.
         </p>
 
@@ -138,7 +138,7 @@ function HeroContent({ dim = false }) {
           </a>
         )}
 
-        <ul className="flex flex-wrap justify-center lg:justify-start gap-x-6 gap-y-4 md:gap-x-8">
+        <ul className="hero-badges flex flex-wrap justify-center lg:justify-start gap-x-6 gap-y-4 md:gap-x-8">
           {badges.map((b) => (
             <li key={b.title} className="flex items-center gap-2.5 md:gap-3 text-left">
               <div
