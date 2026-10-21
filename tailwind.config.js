@@ -7,8 +7,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        display: ["'Bricolage Grotesque'", "sans-serif"],
-        body: ["'Bricolage Grotesque'", "sans-serif"],
+        display: ["var(--font-sans)", "system-ui", "sans-serif"],
+        body: ["var(--font-sans)", "system-ui", "sans-serif"],
       },
       colors: {
         brand: {
