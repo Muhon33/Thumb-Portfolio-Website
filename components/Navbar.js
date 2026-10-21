@@ -87,16 +87,7 @@ export default function Navbar() {
 
   return (
     <nav aria-label="Sections" className="dock fixed bottom-4 md:bottom-8 left-0 right-0 z-50 flex justify-center pointer-events-none">
-      <div
-        className="pointer-events-auto flex items-center gap-1.5 md:gap-2 px-3 py-2 md:px-4 md:py-3 rounded-[30px] md:rounded-[34px] border border-white/10"
-        style={{
-          background:
-            "radial-gradient(circle at 95% 10%, rgba(135, 38, 255, 0.45) 0%, rgba(15, 15, 15, 0.85) 40%, rgba(15, 15, 15, 0.85) 100%)",
-          backdropFilter: "blur(20px)",
-          WebkitBackdropFilter: "blur(20px)",
-          boxShadow: "0 8px 40px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.05)",
-        }}
-      >
+      <div className="dock-glass pointer-events-auto flex items-center gap-1.5 md:gap-2 px-3 py-2 md:px-4 md:py-3 rounded-[30px] md:rounded-[34px]">
         {NAV_ITEMS.map((item) => (
           <DockButton key={item.id} item={item} isActive={activeId === item.id} />
         ))}

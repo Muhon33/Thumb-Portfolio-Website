@@ -32,6 +32,24 @@
 }
 
 /* Bottom navigation dock */
+/* Frosted glass: mostly solid dark tint, strong blur, light top edge */
+.dock-glass {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.03) 45%, rgba(255, 255, 255, 0) 100%),
+    radial-gradient(120% 140% at 100% 0%, rgba(135, 38, 255, 0.40) 0%, rgba(135, 38, 255, 0) 60%),
+    rgba(20, 18, 28, 0.78);
+  -webkit-backdrop-filter: blur(24px) saturate(170%);
+  backdrop-filter: blur(24px) saturate(170%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow:
+    0 12px 40px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.04);
+}
+/* Browsers without blur get a solid version so icons stay readable */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .dock-glass { background-color: rgba(20, 18, 28, 0.96); }
+}
 .dock { animation: dock-in 700ms var(--ease-out) both; }
 @keyframes dock-in { from { transform: translateY(100px); opacity: 0; } to { transform: none; opacity: 1; } }
 .dock-btn { transition: transform var(--dur-ui) var(--ease-out), color 300ms ease, filter 300ms ease; }
@@ -149,27 +167,52 @@
 }
 
 /* Thumbnail banner: endless rows, moved by the GPU (transform only) */
-.banner-row {
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
-  mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
-}
 .banner-track {
   animation-timing-function: linear;
   animation-iteration-count: infinite;
   will-change: transform;
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
 }
 .banner-paused .banner-track { animation-play-state: paused; }
 @keyframes banner-left  { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-33.3333%, 0, 0); } }
 @keyframes banner-right { from { transform: translate3d(-33.3333%, 0, 0); } to { transform: translate3d(0, 0, 0); } }
 
-.thumb-card { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45); }
+/* Edge fades (cheaper than masking the moving rows) */
+.banner-fade { position: absolute; top: 0; bottom: 0; width: 8%; z-index: 30; pointer-events: none; }
+.banner-fade--left  { left: 0;  background: linear-gradient(to right, #000, transparent); }
+.banner-fade--right { right: 0; background: linear-gradient(to left, #000, transparent); }
+
+/* Thumbnail cards */
+.thumb-card { z-index: 1; }
+.thumb-inner { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45); }
+/* Glow sits on its own layer and only fades in, so hovering never forces a repaint of the row */
+.thumb-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 0.75rem;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.14), 0 0 40px rgba(135, 38, 255, 0.35);
+  opacity: 0;
+  pointer-events: none;
+}
 @media (hover: hover) {
-  .thumb-card { transition: transform var(--dur-ui) var(--ease-out); }
-  .thumb-card:hover { transform: scale(1.05); z-index: 10; }
+  .thumb-card {
+    transition: transform 420ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .thumb-card::before { transition: opacity 300ms var(--ease-out); }
+  .thumb-card:hover {
+    z-index: 20;
+    transform: translate3d(0, -6px, 0) scale(1.08);
+  }
+  .thumb-card:hover::before { opacity: 1; }
+  /* Pause the row under the cursor so the thumbnail can be looked at */
+  .banner-row:hover .banner-track { animation-play-state: paused; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .banner-track { animation: none !important; }
+  .thumb-card { transition: none !important; }
 }
 
 /* Reviews: swipe row on phones, screenshot pop-up */

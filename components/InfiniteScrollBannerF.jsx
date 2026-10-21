@@ -42,18 +42,21 @@ function ScrollRow({ images, direction, duration, rowIndex }) {
           return (
             <div
               key={i}
-              className="thumb-card relative flex-shrink-0 w-[170px] h-[96px] md:w-[340px] md:h-[191px] rounded-xl overflow-hidden"
+              className="thumb-card relative flex-shrink-0 w-[170px] h-[96px] md:w-[340px] md:h-[191px]"
               aria-hidden={isCopy || undefined}
             >
-              <Image
-                src={img}
-                alt={isCopy ? "" : `YouTube thumbnail design ${rowIndex * 6 + (i % images.length) + 1} by Mahbub Muhon`}
-                placeholder="blur"
-                fetchPriority="low"
-                sizes="(max-width: 768px) 170px, 340px"
-                draggable={false}
-                className="w-full h-full object-cover select-none pointer-events-none"
-              />
+              <div className="thumb-inner relative w-full h-full rounded-xl overflow-hidden">
+                <Image
+                  src={img}
+                  alt={isCopy ? "" : `YouTube thumbnail design ${rowIndex * 6 + (i % images.length) + 1} by Mahbub Muhon`}
+                  placeholder="blur"
+                  fetchPriority="low"
+                  quality={72}
+                  sizes="(max-width: 768px) 170px, 340px"
+                  draggable={false}
+                  className="w-full h-full object-cover select-none pointer-events-none"
+                />
+              </div>
             </div>
           );
         })}
@@ -83,6 +86,9 @@ export default function InfiniteScrollBannerF() {
       className={`banner w-full bg-black py-6 overflow-hidden relative z-20 ${visible ? "" : "banner-paused"}`}
     >
       <h2 className="sr-only">Thumbnail portfolio</h2>
+      {/* Soft fade at the left and right edges */}
+      <div className="banner-fade banner-fade--left" aria-hidden="true" />
+      <div className="banner-fade banner-fade--right" aria-hidden="true" />
       <div className="flex flex-col">
         {ROWS.map((row, i) => (
           <ScrollRow key={i} rowIndex={i} {...row} />
