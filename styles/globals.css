@@ -31,6 +31,123 @@
   --dur-ui: 200ms;
 }
 
+/* Bottom navigation dock */
+.dock { animation: dock-in 700ms var(--ease-out) both; }
+@keyframes dock-in { from { transform: translateY(100px); opacity: 0; } to { transform: none; opacity: 1; } }
+.dock-btn { transition: transform var(--dur-ui) var(--ease-out), color 300ms ease, filter 300ms ease; }
+.dock-btn:active { transform: scale(0.9); }
+@media (hover: hover) { .dock-btn:hover { transform: translateY(-3px) scale(1.15); color: #fff; } }
+.dock-btn--active { filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.45)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.15)); }
+.dock-glow {
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+  animation: dock-breathe 2.5s ease-in-out infinite;
+}
+@keyframes dock-breathe { 0%, 100% { opacity: 0.2; } 50% { opacity: 0.5; } }
+@media (prefers-reduced-motion: reduce) {
+  .dock, .dock-glow { animation: none; }
+  .dock-btn { transition: none; }
+}
+
+/* Page background glow: gradients only, no blur filters or blend modes */
+.liquid-bg {
+  position: fixed;
+  inset: -10%;
+  z-index: -10;
+  pointer-events: none;
+  background:
+    radial-gradient(28rem 28rem at 25% 20%, rgba(135, 38, 255, 0.16), transparent 70%),
+    radial-gradient(24rem 24rem at 80% 55%, rgba(200, 162, 255, 0.10), transparent 70%),
+    radial-gradient(30rem 30rem at 40% 95%, rgba(135, 38, 255, 0.12), transparent 70%);
+}
+@media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+  .liquid-bg { animation: liquid-drift 40s ease-in-out infinite alternate; will-change: transform; }
+}
+@keyframes liquid-drift {
+  from { transform: translate3d(-3%, -2%, 0) scale(1); }
+  to   { transform: translate3d(3%, 3%, 0) scale(1.08); }
+}
+
+/* ── Hero ─────────────────────────────────────────────────────────────────
+   --s is the size of the photo + orbit scene. Everything in it scales from it. */
+.hero {
+  --s: min(100vw, 480px);
+  --io: 52px;              /* outer orbit icon size */
+  --ii: 44px;              /* inner orbit icon size */
+  --mx: -9999px;           /* spotlight position (set by JS) */
+  --my: -9999px;
+}
+@media (min-width: 768px)  { .hero { --s: 580px; --io: 58px; --ii: 50px; } }
+@media (min-width: 1024px) { .hero { --s: min(52vw, 780px); --io: calc(var(--s) * 0.09); --ii: calc(var(--s) * 0.078); } }
+
+.hero-dots {
+  background:
+    radial-gradient(ellipse at center, transparent 20%, #000 80%),
+    radial-gradient(#333 1px, transparent 1px);
+  background-size: 100% 100%, 20px 20px;
+}
+
+.hero-name { font-size: clamp(56px, 19vw, 88px); }
+@media (min-width: 768px)  { .hero-name { font-size: 120px; } }
+@media (min-width: 1024px) { .hero-name { font-size: clamp(88px, 8vw, 124px); } }
+
+/* Phones/tablets: the name overlaps the faded bottom of the photo */
+.hero-text { margin-top: calc(var(--s) * -0.26); text-shadow: 0 2px 18px rgba(0, 0, 0, 0.65); }
+@media (min-width: 1024px) { .hero-text { margin-top: 0; text-shadow: none; } }
+
+/* Orbit scene */
+.orbit { position: relative; width: var(--s); height: var(--s); flex-shrink: 0; }
+.orbit-portrait { position: absolute; left: 50%; top: 60%; width: 95%; height: 108%; transform: translate(-50%, -50%); z-index: 10; }
+.orbit-portrait-glow {
+  position: absolute; inset: -30px; pointer-events: none;
+  background: radial-gradient(ellipse 70% 70% at 50% 48%, rgba(30, 90, 220, 0.32) 0%, transparent 72%);
+}
+.orbit-fade {
+  position: absolute; left: -20%; bottom: -22%; width: 140%; height: 52%; z-index: 200; pointer-events: none;
+  background: linear-gradient(to top, #000 35%, transparent 100%);
+}
+.orbit-ring { position: absolute; inset: 0; z-index: 5; animation: orbit-spin 45s linear infinite; }
+.orbit-ring--inner { animation-duration: 33s; animation-direction: reverse; }
+.orbit-item {
+  --size: var(--io);
+  --r: calc(var(--s) * 0.4196);
+  position: absolute; left: 50%; top: 50%;
+  width: var(--size); height: var(--size);
+  margin: calc(var(--size) / -2) 0 0 calc(var(--size) / -2);
+  transform: rotate(var(--a)) translateX(var(--r)) rotate(calc(-1 * var(--a)));
+}
+.orbit-ring--inner .orbit-item { --size: var(--ii); --r: calc(var(--s) * 0.2679); }
+/* Each icon spins the other way so it stays upright */
+.orbit-icon { width: 100%; height: 100%; animation: orbit-spin 45s linear infinite reverse; }
+.orbit-ring--inner .orbit-icon { animation-duration: 33s; animation-direction: normal; }
+@keyframes orbit-spin { to { transform: rotate(360deg); } }
+.hero-paused .orbit-ring,
+.hero-paused .orbit-icon { animation-play-state: paused; }
+
+/* Desktop spotlight: the grey copy sits underneath, the real hero shows
+   through a soft circle that follows the cursor. */
+@property --reveal-r { syntax: "<length>"; inherits: true; initial-value: 0px; }
+.hero-dim { display: none; }
+@media (hover: hover) and (min-width: 1024px) {
+  .hero { --reveal-r: 0px; transition: --reveal-r 300ms var(--ease-out); }
+  .hero.is-revealing { --reveal-r: 280px; }
+  .hero-dim { display: block; }
+  .hero-bright {
+    background:
+      radial-gradient(ellipse at center, transparent 20%, #000 80%),
+      radial-gradient(#333 1px, #000 1px);
+    background-size: 100% 100%, 20px 20px;
+    -webkit-mask-image: radial-gradient(circle var(--reveal-r) at var(--mx) var(--my), #000 0%, rgba(0, 0, 0, 0.85) 60%, rgba(0, 0, 0, 0.3) 85%, transparent 100%);
+    mask-image: radial-gradient(circle var(--reveal-r) at var(--mx) var(--my), #000 0%, rgba(0, 0, 0, 0.85) 60%, rgba(0, 0, 0, 0.3) 85%, transparent 100%);
+  }
+  /* Keyboard users: show the full hero while anything in it has focus */
+  .hero-bright:focus-within { -webkit-mask-image: none; mask-image: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbit-ring, .orbit-icon { animation: none !important; }
+  .hero { transition: none !important; }
+}
+
 /* Thumbnail banner: endless rows, moved by the GPU (transform only) */
 .banner-row {
   -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%);
@@ -96,16 +213,6 @@ body {
 ::-webkit-scrollbar-track { background: #000000; }
 ::-webkit-scrollbar-thumb { background: #8726ff; border-radius: 3px; }
 
-/* Custom noise texture overlay */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0.05;
-}
 
 @layer utilities {
   .glass {
