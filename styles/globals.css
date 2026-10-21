@@ -5,8 +5,48 @@
 @tailwind utilities;
 
 :root {
+  /* Brand */
   --brand-accent: #8726ff;
+  --brand-accent-soft: #c8a2ff;
   --brand-dark: #000000;
+
+  /* Surfaces and text */
+  --surface: #0c0c11;
+  --surface-raised: #17171f;
+  --line: rgba(255, 255, 255, 0.08);
+  --line-strong: rgba(255, 255, 255, 0.18);
+  --text: #f9fafb;
+  --text-soft: #d4d4d8;
+  --text-muted: #a1a1aa;
+  --star: #fbbf24;
+
+  /* Platforms */
+  --upwork: #6fda44;
+  --fiverr: #1dbf73;
+  --youtube: #ff3b3b;
+
+  /* Shape and motion */
+  --radius-lg: 20px;
+  --radius-md: 12px;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-ui: 200ms;
+}
+
+/* Reviews: swipe row on phones, screenshot pop-up */
+.rv-scroller { scrollbar-width: none; scroll-padding-inline: 1.5rem; }
+.rv-scroller::-webkit-scrollbar { display: none; }
+
+.rv-dialog::backdrop { background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(4px); }
+.rv-dialog[open] { animation: rv-pop var(--dur-ui) var(--ease-out); }
+html:has(.rv-dialog[open]) { overflow: hidden; }
+
+@keyframes rv-pop {
+  from { opacity: 0; transform: translateY(8px) scale(0.98); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rv-dialog[open] { animation: none; }
 }
 
 * {
