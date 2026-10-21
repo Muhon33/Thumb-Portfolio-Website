@@ -98,7 +98,7 @@ export function OrbitScene({ decorative = false }) {
           alt={decorative ? "" : "Mahbub Muhon"}
           fill
           priority={!decorative}
-          sizes="(min-width: 1024px) 740px, 112vw"
+          sizes="(min-width: 1024px) 740px, (min-width: 768px) 551px, 95vw"
           className="object-cover object-top"
         />
       </div>

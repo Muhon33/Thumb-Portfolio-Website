@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { reviews, PROFILE_LINKS } from "../data/reviews";
 import { PlatformLogo, PlatformAvatar, PLATFORM_NAMES } from "./PlatformLogo";
 
@@ -113,6 +113,16 @@ function Actions({ r, onOpen }) {
 function VideoReviewCard({ r }) {
   const videoRef = useRef(null);
   const [playing, setPlaying] = useState(false);
+  const [near, setNear] = useState(false);
+
+  // Only fetch the cover image once the card is close to the screen.
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([e]) => e.isIntersecting && (setNear(true), io.disconnect()), { rootMargin: "600px" });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
 
   const play = () => {
     const v = videoRef.current;
@@ -128,7 +138,7 @@ function VideoReviewCard({ r }) {
         <video
           ref={videoRef}
           src={r.video.src}
-          poster={r.video.poster}
+          poster={near ? r.video.poster : undefined}
           preload="none"
           playsInline
           className="absolute inset-0 w-full h-full object-cover"

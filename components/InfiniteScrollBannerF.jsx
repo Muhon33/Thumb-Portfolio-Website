@@ -49,6 +49,7 @@ function ScrollRow({ images, direction, duration, rowIndex }) {
                 src={img}
                 alt={isCopy ? "" : `YouTube thumbnail design ${rowIndex * 6 + (i % images.length) + 1} by Mahbub Muhon`}
                 placeholder="blur"
+                fetchPriority="low"
                 sizes="(max-width: 768px) 170px, 340px"
                 draggable={false}
                 className="w-full h-full object-cover select-none pointer-events-none"
