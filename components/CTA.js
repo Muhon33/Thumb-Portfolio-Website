@@ -1,3 +1,4 @@
+import { WHATSAPP_URL } from "../data/site";
 import { useEffect, useRef } from "react";
 
 export default function CTA() {
@@ -50,7 +51,7 @@ export default function CTA() {
           {/* CTA buttons */}
           <div className="fade-up flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <a
-              href="https://wa.me/muhon1"
+              href={WHATSAPP_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-3 px-10 py-4 rounded-full font-extrabold text-base text-black transition-all duration-300 bg-gradient-to-r from-[#c8a2ff] to-[#8726ff] shadow-[0_6px_32px_rgba(135,38,255,0.4)] hover:shadow-[0_10px_40px_rgba(135,38,255,0.6)] hover:-translate-y-1"

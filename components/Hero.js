@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { OrbitScene } from "./OrbitScene";
 import { MaskContainer } from "./SVGMaskEffect";
+import { WHATSAPP_URL } from "../data/site";
 
 const badges = [
   {
@@ -85,7 +86,7 @@ function HeroContent({ bright = false }) {
         </p>
 
         <a
-          href="https://wa.me/muhon1"
+          href={WHATSAPP_URL}
           target="_blank"
           rel="noopener noreferrer"
           className={`inline-flex items-center justify-center gap-2.5 px-10 py-5 rounded-full font-extrabold text-base w-fit mx-auto md:mx-0 mb-12 transition-all duration-300 ${
